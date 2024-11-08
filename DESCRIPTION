@@ -1,0 +1,32 @@
+Package: CrossExpression
+Title: Cross-expression analysis of spatial transcriptomic data
+Version: 1.0.0
+Description: Cross-expression quantifies the degree to which two genes are expressed between spatially adjacent cells, thus revealing how they coordinate their expression patterns across the tissue. This package provides functions to discover cross-expressing genes among all possible gene pairs (using hypergeometric and correlation approaches), visualize cross-expression patterns on tissue, assess whether cross-expressing genes are uniformly distributed or show local enrichment in space, compute and visualize effect sizes in the form of bullseye scores or plots, and smooth (convolve) cells' gene expression by that of their neighbors for region-level cross-expression analysis.
+Authors@R: c(person("Ameer", "Sarwar", , "ameer.sarwar@mail.utoronto.ca", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-3029-0948")),
+        person("Mara", "Rue", , "mara.rue@alleninstitute.org", role = "ctb", comment = c(ORCID = "0000-0002-4305-7838")),
+        person("Leon", "French", , "leon.french@utoronto.ca", role = "ctb"),
+        person("Helen", "Cross", , "crossh@carleton.edu", role = "ctb"),
+        person("Sarah", "Choi", , "sr.choi@mail.utoronto.ca", role = "ctb"),
+        person("Xiaoyin", "Chen", , "xiaoyin.chen@alleninstitute.org", role = "ctb", comment = c(ORCID = "0000-0002-2807-6125")),
+        person("Jesse", "Gillis", , "jesse.gillis@utoronto.ca", role = "aut", comment = c(ORCID = "0000-0002-0936-9774"))
+    )
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+VignetteBuilder: knitr
+Suggests: 
+    knitr,
+    rmarkdown,
+    testthat (>= 3.0.0)
+Imports: 
+    dplyr,
+    ggplot2,
+    Matrix,
+    RANN,
+    Rfast,
+    stringr,
+    rlang (>= 0.4.10)
+biocViews: Software
+Depends: R (>= 3.5.0)
+License: MIT + file LICENSE
+Config/testthat/edition: 3
