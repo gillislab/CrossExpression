@@ -1,0 +1,34 @@
+Package: CrossExpression
+Title: Cross-expression analysis of spatial transcriptomic data
+Version: 1.0.0
+Authors@R: 
+    c(
+        person("Ameer", "Sarwar", , "ameer.sarwar@mail.utoronto.ca", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-3029-0948")),
+        person("Mara", "Rue", , "mara.rue@alleninstitute.org", role = "ctb", comment = c(ORCID = "0000-0002-4305-7838")),
+        person("Leon", "French", , "leon.french@utoronto.ca", role = "ctb"),
+        person("Helen", "Cross", , "crossh@carleton.edu", role = "ctb"),
+        person("Sarah", "Choi", , "sr.choi@mail.utoronto.ca", role = "ctb"),
+        person("Xiaoyin", "Chen", , "xiaoyin.chen@alleninstitute.org", role = "ctb", comment = c(ORCID = "0000-0002-2807-6125")),
+        person("Jesse", "Gillis", , "jesse.gillis@utoronto.ca", role = "aut", comment = c(ORCID = "0000-0002-0936-9774"))
+    )
+Description: Cross-expression quantifies the degree to which two genes are expressed between spatially adjacent cells, thus revealing how they coordinate their expression patterns across the tissue. This package provides functions to discover cross-expressing genes among all possible gene pairs (using hypergeometric and correlation approaches), visualize cross-expression patterns on tissue, assess whether cross-expressing genes are uniformly distributed or show local enrichment in space, compute and visualize effect sizes in the form of bullseye scores or plots, and smooth (convolve) cells' gene expression by that of their neighbors for region-level cross-expression analysis.
+License: use_mit_license(c("Ameer Sarwar", " Jesse Gillis"))
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
+Imports: 
+    dplyr,
+    forcats,
+    ggplot2,
+    Matrix,
+    purrr,
+    RANN,
+    readr,
+    Rfast,
+    stringr,
+    tibble,
+    tidyr
