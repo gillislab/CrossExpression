@@ -10,10 +10,10 @@ Authors@R: c(person("Ameer", "Sarwar", , "ameer.sarwar@mail.utoronto.ca", role =
         person("Xiaoyin", "Chen", , "xiaoyin.chen@alleninstitute.org", role = "ctb", comment = c(ORCID = "0000-0002-2807-6125")),
         person("Jesse", "Gillis", , "jesse.gillis@utoronto.ca", role = "aut", comment = c(ORCID = "0000-0002-0936-9774"))
     )
-License: use_mit_license(c("Ameer Sarwar", " Jesse Gillis"))
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
+VignetteBuilder: knitr
 Suggests: 
     knitr,
     rmarkdown
@@ -28,5 +28,7 @@ Imports:
     Rfast,
     stringr,
     tibble,
-    tidyr
+    tidyr,
+    rlang (>= 0.4.10)
 Depends: R (>= 3.5.0)
+License: MIT + file LICENSE
