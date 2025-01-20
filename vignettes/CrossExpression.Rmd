@@ -1,6 +1,6 @@
 ---
 title: "Cross Expression"
-output: rmarkdown::html_vignette
+output: BiocStyle::html_document
 vignette: >
   %\VignetteIndexEntry{Cross Expression}
   %\VignetteEngine{knitr::rmarkdown}
