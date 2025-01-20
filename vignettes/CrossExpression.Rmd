@@ -29,11 +29,8 @@ Load the matrices by running:
 ```{r}
 library("CrossExpression")
 
-data("mouse_expression")
-data("mouse_locations")
-
-data = mouse_expression
-locations = mouse_locations
+data("data")
+data("locations")
 ```
 
 Check that the datasets are loaded correctly by running:
