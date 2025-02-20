@@ -52,12 +52,8 @@ get_cooccurrence_stats <- function(matrix1, matrix2, sparse = TRUE, binarize = T
   cooccur = t(matrix1) %*% matrix2
   cells   = t(matrix1) %*% matrix1
   
-  # convert to regular matrix
-  cooccur = base::as.matrix(cooccur)
-  cells   = base::as.matrix(cells)
-  
   # return output
-  output  = list(cooccur,cells); names(output) = c("cooccur","cells")
+  output  = list(cooccur, cells); names(output) = c("cooccur", "cells")
   return(output)
 }
 
@@ -100,7 +96,7 @@ rotate_coordinates <- function(x, y, n_degrees = 0, center = FALSE, scale = FALS
   # center and/or scales the coordinates
   x_rotated <- scale(x = x_rotated, center = center, scale = scale)
   y_rotated <- scale(x = y_rotated, center = center, scale = scale)
-  
+
   # flip x or y coordinates
   if (flip_x){
     x_rotated <- -1 * x_rotated
@@ -132,8 +128,7 @@ rotate_coordinates <- function(x, y, n_degrees = 0, center = FALSE, scale = FALS
 
 cross_expression <- function(data, locations, neighbor = 1, alpha_cross = 0.05, alpha_co = 0, output_matrix = FALSE){
   
-  # convert data to sparse matrix and binarize
-  data = Matrix(data = Matrix::as.matrix(data), sparse = TRUE)
+  # binarize data
   data[data > 0] = 1
   
   # find nth nearest neighbors and create neighbors x genes matrix
@@ -280,9 +275,6 @@ cross_expression <- function(data, locations, neighbor = 1, alpha_cross = 0.05, 
 #'
 cross_expression_correlation <- function(data, locations, neighbor = 1, output_matrix = FALSE){
   
-  # convert data to matrix
-  data = as.matrix(data)
-  
   # find nth nearest neighbors and create neighbors x genes matrix
   neighbor  = neighbor + 1
   distances = RANN::nn2(locations, locations, k = neighbor, searchtype = "standard", treetype = "kd")
@@ -352,7 +344,6 @@ smooth_cells <- function(data, locations, neighbors_smoothed = 1, corr = TRUE){
   cellbycell[ids] = 1
   
   # smooth gene expression
-  data = Matrix(data = Matrix::as.matrix(data), sparse = TRUE)
   data_smooth = cellbycell %*% data
   data_smooth = data_smooth / neighbors_smoothed
   
@@ -363,7 +354,6 @@ smooth_cells <- function(data, locations, neighbors_smoothed = 1, corr = TRUE){
     corr = correlation(matrix1 = data_smooth, matrix2 = corr)
     
     # output smoothed expression matrix and correlation matrix
-    data_smooth = base::as.matrix(data_smooth)
     output = list(data_smooth, corr); names(output) = c("smooth_expression", "smooth_correlation")
     
     # return output
@@ -371,7 +361,6 @@ smooth_cells <- function(data, locations, neighbors_smoothed = 1, corr = TRUE){
   }
   
   # return output
-  data_smooth = base::as.matrix(data_smooth)
   return(data_smooth)
 }
 
@@ -396,8 +385,7 @@ smooth_cells <- function(data, locations, neighbors_smoothed = 1, corr = TRUE){
 #'
 bullseye_scores <- function(data, locations, window_sizes = 1:10, ratio_to_co = FALSE, log_2 = FALSE, output_matrix = FALSE){
   
-  # convert to sparse matrix and binarize
-  data = Matrix(data = Matrix::as.matrix(data), sparse = TRUE)
+  # binarize data
   data[data > 0] = 1
   
   # find neighbors of each cell per window
@@ -520,7 +508,7 @@ bullseye_plot <- function(scores){
   df = bind_rows(df_list); colnames(df) = c("x","y","window","hue")
   
   # create bullseye plot
-  p = ggplot(df, aes(x = .data$x, y = .data$y, fill = .data$hue)) +
+  p = ggplot(df, aes(x = x, y = y, fill = hue)) +
     geom_polygon(aes(group = window)) + coord_fixed(ratio = 1) +
     scale_fill_gradient(low = "lightblue", high = "#08306B") +
     labs(x = "", y = "", fill = "") +
@@ -551,9 +539,8 @@ bullseye_plot <- function(scores){
 #'
 spatial_enrichment <- function(data, locations, gene1, gene2, neighbor = 1, max_pairs = 20000){
   
-  # subset genes and convert data to matrix
+  # subset genes
   data = data[,c(gene1,gene2)]
-  data = as.matrix(data)
   data[data > 0] = 1
   
   # find nth nearest neighbors and create neighbors x genes matrix
@@ -603,7 +590,7 @@ spatial_enrichment <- function(data, locations, gene1, gene2, neighbor = 1, max_
   
   pp = data.frame(vals = c(target, null), type = rep(c("Cross-expressing", "Random"), times = c(length(target), length(null))))
   pp$type = factor(pp$type, levels = c("Random","Cross-expressing"))
-  pp = ggplot(pp) + aes(x = .data$vals, fill = .data$type, y = after_stat(.data$scaled)) +
+  pp = ggplot(pp) + aes(x = vals, fill = type, y = after_stat(scaled)) +
     geom_density(alpha = 0.8) +
     labs(x = "Distance to cells", y = "Density", fill = "") + theme_classic() +
     guides(fill = guide_legend(reverse = TRUE)) +
@@ -637,11 +624,10 @@ spatial_enrichment <- function(data, locations, gene1, gene2, neighbor = 1, max_
 #'
 tissue_expression_plot <- function(data, locations, gene1, gene2, cross_expression = TRUE, neighbor = 1, point_size = 0, scale_bar = 0){
   
-  # convert to sparse matrix and binarize
+  # subset and binarize data
   data = data[,c(gene1,gene2)]
   gene_names = colnames(data)
   colnames(data) = c("gene1","gene2")
-  data = Matrix(data = Matrix::as.matrix(data), sparse = TRUE)
   data[data > 0] = 1
   
   colnames(locations) = c("x","y")
@@ -668,7 +654,7 @@ tissue_expression_plot <- function(data, locations, gene1, gene2, cross_expressi
     locations$type = factor(locations$type, levels = c("Neither", "Both", "Gene2", "Gene1"))
     locations = locations[order(locations$type), ]
     
-    p = ggplot(locations) + aes(x = .data$x, y = .data$y, color = type) +
+    p = ggplot(locations) + aes(x = x, y = y, color = type) +
       geom_point(size = point_size) +
       scale_color_manual(values = c("Neither" = "gray88", "Both" = "chartreuse3", "Gene2" = "deepskyblue4", "Gene1" = "brown3"),
                          labels = c("Neither" = "Neither", "Both" = "Both", "Gene2" = gene_names[2], "Gene1" = gene_names[1])) +
@@ -716,7 +702,7 @@ tissue_expression_plot <- function(data, locations, gene1, gene2, cross_expressi
   meta_reordered = rbind(meta_neither, meta_others)
   
   # plot cross-expression
-  p = ggplot(meta_reordered) + aes(x = .data$x, y = .data$y, color = light) +
+  p = ggplot(meta_reordered) + aes(x = x, y = y, color = light) +
     geom_point(size = point_size) +
     scale_color_manual(values = c("Neither" = "gray88", "Both" = "chartreuse3", "Gene2" = "deepskyblue4", "Gene1" = "brown3"),
                        labels = c("Neither" = "Neither", "Both" = "Both", "Gene2" = gene_names[2], "Gene1" = gene_names[1])) +
