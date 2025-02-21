@@ -16,7 +16,8 @@ RoxygenNote: 7.3.2
 VignetteBuilder: knitr
 Suggests: 
     knitr,
-    rmarkdown
+    rmarkdown,
+    testthat (>= 3.0.0)
 Imports: 
     dplyr,
     forcats,
@@ -32,3 +33,4 @@ Imports:
     rlang (>= 0.4.10)
 Depends: R (>= 3.5.0)
 License: MIT + file LICENSE
+Config/testthat/edition: 3
