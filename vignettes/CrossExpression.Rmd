@@ -1,6 +1,6 @@
 ---
 title: "Cross Expression"
-output: rmarkdown::html_vignette
+output: BiocStyle::html_document
 vignette: >
   %\VignetteIndexEntry{Cross Expression}
   %\VignetteEngine{knitr::rmarkdown}
@@ -14,11 +14,11 @@ knitr::opts_chunk$set(echo = TRUE, results = "hide", message = FALSE, warning = 
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-Ameer Sarwar, Mara Rue, Leon French, Helen Cross, Xiaoyin Chen, and Jesse Gillis
+Ameer Sarwar, Mara Rue, Leon French, Helen Cross, Sarah Choi, Xiaoyin Chen, and Jesse Gillis
 
 Spatial transcriptomic technologies measure gene expression in individual cells and record their physical locations, allowing us to ask how cells influence one another within the tissue. To address this question, we introduce cross-expression, a novel framework for understanding coordinated gene expression between spatially adjacent cells. Whereas co-expression measures the degree to which the expression of two genes is coordinated within the same cells, cross-expression quantifies how their expression is associated across neighboring cells. Since two genes can trivially cross-express if they are co-expressed in neighboring cells, we define cross-expression mutually exclusively, where the target cell expresses gene A but not gene B and its neighbor expresses gene B but not gene A, thus revealing genuine coordination as opposed to mere co-localization. Here, we provide an efficient R package to perform cross-expression analysis, which makes pairwise comparisons between all genes and indicates which pairs are significantly cross-expressed across the tissue. Rather than targetting previously known genes, our framework uses the high-throughput of spatial transcriptomics data to discover spatial gene expression programs in tissue.
 
-<img src="https://github.com/user-attachments/assets/63835a44-347e-4d1d-b6b8-d31a05a61a22" alt="Screenshot 2024-07-24 at 2 41 11 AM" width="1000"/>
+![1](https://github.com/user-attachments/assets/731233e9-a6b2-43a3-8e1c-da82adc7bf91)
 
 ## Part 1 - Sample Data
 
@@ -29,11 +29,8 @@ Load the matrices by running:
 ```{r}
 library("CrossExpression")
 
-data("mouse_expression")
-data("mouse_locations")
-
-data = mouse_expression
-locations = mouse_locations
+data("data")
+data("locations")
 ```
 
 Check that the datasets are loaded correctly by running:
@@ -45,7 +42,7 @@ head(locations)
 
 You should see the following:
 
-<img src="https://github.com/ameersarwar/cross_expression/assets/174621170/e29da77f-e57e-4b34-9bf9-41e95b3e0adf" alt="Screenshot 2024-07-04 at 2 32 29 AM" width="400"/>
+![2](https://github.com/user-attachments/assets/8989a715-ba2c-4d9d-b7d6-76b00fccdc7e)
 
 The `data` is a cells by genes expression matrix with 133 genes assayed across 94,100 cells, and `locations` contains the x (`pos_x`) and y (`pos_y`) coordinates (centroids) for each cell.
 
@@ -60,7 +57,7 @@ ggplot(locations) + aes(x = pos_x, y = pos_y) + geom_point(size = 0) + theme_cla
 
 This outputs the image shown below, where each dot is a cell plotted using its x and y coordinates.
 
-<img src="https://github.com/ameersarwar/cross_expression/assets/174621170/7cd1017e-3ef4-47d2-990f-349da44fd1ab" alt="Screenshot 2024-07-05 at 12 32 00 AM" width="1153"/>
+![3](https://github.com/user-attachments/assets/5ce3ae94-c983-4a33-a310-4ed129c1bc5f)
 
 ### Cross-expression across all gene pairs
 
@@ -73,7 +70,7 @@ head(cross)
 
 The output is given as a dataframe:
 
-<img src="https://github.com/ameersarwar/cross_expression/assets/174621170/90b23fb7-987f-4ec2-8a6b-5240dddbc95f" alt="Screenshot 2024-07-05 at 12 44 51 AM" width="676"/>
+![4](https://github.com/user-attachments/assets/4307bc99-ebfc-4555-9f38-6ae0dea1a3f6)
 
 The function compares each gene pair and reports the p-values of cross-expression before (`cross_pvalue`) and after (`cross_padj`) Benjamini-Hochberg false discovery rate (FDR) multiple test correction. It also reports whether the p-values (after FDR) are significant (`cross_sig`) at `alpha ≤ 0.05` (default) as well as the p-values of these genes' co-expression (`co_pvalue`) after FDR correction. You can play with the other parameters to test how the output changes.
 
@@ -86,7 +83,7 @@ head(cross)
 
 Inspect the output:
 
-<img src="https://github.com/user-attachments/assets/cc9b248e-122a-463e-b260-738f4b86ec8b" alt="Screenshot 2024-08-19 at 8 53 18 PM" width="800"/>
+![5](https://github.com/user-attachments/assets/2e24faaf-2b1e-4c89-bfe1-64907470dbb1)
 
 The gene pairs in `cross` now only include those showing statistically significant cross-expression across our tissue slice. In total, you should have `42` pairs (out of `8778` possible pairs in the `133` gene panel).
 
@@ -112,7 +109,7 @@ tissue_expression_plot(data = data, locations = locations, gene1 = "Tafa1", gene
 
 This shows the following image, where the cells are colored by the expression, co-expression, or non-expression of these genes:
 
-<img src="https://github.com/ameersarwar/cross_expression/assets/174621170/abee8094-b8f3-4dba-a9ba-91feb60bd768" alt="Screenshot 2024-07-05 at 1 25 33 AM" width="1038"/>
+![6](https://github.com/user-attachments/assets/a462c473-07b0-4395-a767-9561eee99a31)
 
 However, it is still difficult to distinguish the cross-expressing cell-neighbor pairs from individual cells expressing each gene. To only color cross-expressing cells, call the `tissue_expression_plot` function while setting `cross_expression = TRUE`:
 
@@ -122,7 +119,7 @@ tissue_expression_plot(data = data, locations = locations, gene1 = "Tafa1", gene
 
 This produces the following image, which clearly shows that these two genes are preferentially expressed in neighboring cells:
 
-<img src="https://github.com/ameersarwar/cross_expression/assets/174621170/eccf7b7d-84ac-4d9c-968e-e1f5e75531e8" alt="Screenshot 2024-07-05 at 2 02 43 AM" width="1039"/>
+![7](https://github.com/user-attachments/assets/0618c6c7-73eb-4578-b574-b3e355494a97)
 
 This allows one to view any gene pair of interest or customize the plot using `R`'s `ggplot` `library`, etc.
 
@@ -153,7 +150,7 @@ enrich$plot
 
 This shows the following image:
 
-<img src="https://github.com/ameersarwar/cross_expression/assets/174621170/f9d77d36-e7be-40ce-92bd-e58d680a7789" alt="Screenshot 2024-07-05 at 2 32 47 AM" width="969"/>
+![8](https://github.com/user-attachments/assets/c8e9ffcb-6080-4654-be0e-c1204f6eb391)
 
 The `spatial_enrichment` function also contains the two distance distributions, which can be obtained via `enrich$target` and `enrich$null` for further analysis.
 
@@ -174,7 +171,7 @@ head(corr)
 
 The output is as follows:
 
-<img src="https://github.com/ameersarwar/cross_expression/assets/174621170/5f28d3bd-848a-4530-b636-b5e858163f22" alt="Screenshot 2024-07-08 at 10 23 18 PM" width="286"/>
+![9](https://github.com/user-attachments/assets/cab7bb69-af88-4fd2-8b2c-f4214d97f994)
 
 The `cross_expression_correlation` function can be used in conjunction with `cross_expression`, e.g., by considering genes with significant cross-expression, or in isolation, e.g., comparing cross-expression correlations between nearby tissue sections.
 
@@ -195,7 +192,7 @@ head(bull)
 
 This generates the output:
 
-<img src="https://github.com/ameersarwar/cross_expression/assets/174621170/f9959852-b604-48c5-8c34-dbd0246199f5" alt="Screenshot 2024-07-08 at 11 28 49 PM" width="636"/>
+![10](https://github.com/user-attachments/assets/183a8e11-f1ef-48b6-9f8c-c63905740bdd)
 
 We can see the scores for the target cell (`Cell`) and the neighbors 1 to 5 as specified in `window_sizes = 1:5`. The `window_sizes` input can be non-continuous and in any order, e.g., `window_sizes = c(100, 2:5, 12)`
 
@@ -223,7 +220,7 @@ bullseye_plot(scores = score_vector)
 
 This creates the following plot:
 
-<img src="https://github.com/ameersarwar/cross_expression/assets/174621170/ac0c53cc-cbd7-4b0e-9725-e1ce228139af" alt="Screenshot 2024-07-08 at 11 16 40 PM" width="653"/>
+![11](https://github.com/user-attachments/assets/950a304a-df85-45c3-b54f-8c7addfd74b5)
 
 The plot - called the `bullseye plot` - shows fewer cells co-expressing `Nrg1` with `Galntl6` (center) and more nearest neighbors (first ring) expressing `Nrg1`. Importantly, the number of distant neighbors (subsequent rings) expressing `Nrg1` is about the same as the number of cells co-expressing both genes.
 
@@ -251,7 +248,7 @@ locations2 = rotate_coordinates(x = locations$pos_x, y = locations$pos_y, n_degr
 ggplot(locations2) + aes(x = pos_x, y = pos_y) + geom_point(size = 0) + theme_classic()
 ```
 
-<img src="https://github.com/ameersarwar/cross_expression/assets/174621170/ed25f762-c505-4865-b7b5-e79e1c79834f" alt="Screenshot 2024-07-09 at 12 40 55 AM" width="1061"/>
+![12](https://github.com/user-attachments/assets/b6e50885-2b43-4f5a-93a0-fd31966703a6)
 
 The output in `locations2` rotates the xy coordinates `20` degrees counter-clockwise, z-score normalizes them (`center = TRUE` and `scale = TRUE`), and reflects them in the x and y axes (`flip_x = TRUE` and `flip_y = TRUE`).
 

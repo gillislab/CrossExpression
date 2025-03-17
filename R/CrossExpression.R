@@ -485,6 +485,7 @@ bullseye_scores <- function(data, locations, window_sizes = 1:10, ratio_to_co = 
 #' @return Returns a circular bullseye plot.
 #' @importFrom dplyr bind_rows
 #' @importFrom ggplot2 ggplot
+#' @importFrom rlang .data
 #' @export
 #'
 bullseye_plot <- function(scores){
@@ -519,7 +520,7 @@ bullseye_plot <- function(scores){
   df = bind_rows(df_list); colnames(df) = c("x","y","window","hue")
   
   # create bullseye plot
-  p = ggplot(df, aes(x = x, y = y, fill = hue)) +
+  p = ggplot(df, aes(x = .data$x, y = .data$y, fill = .data$hue)) +
     geom_polygon(aes(group = window)) + coord_fixed(ratio = 1) +
     scale_fill_gradient(low = "lightblue", high = "#08306B") +
     labs(x = "", y = "", fill = "") +
@@ -545,6 +546,7 @@ bullseye_plot <- function(scores){
 #'
 #' @return Returns a p-value and distance distributions between cross-expressing cells and cross-expressing and random cells.
 #' @importFrom ggplot2 ggplot
+#' @importFrom rlang .data
 #' @export
 #'
 spatial_enrichment <- function(data, locations, gene1, gene2, neighbor = 1, max_pairs = 20000){
@@ -601,7 +603,7 @@ spatial_enrichment <- function(data, locations, gene1, gene2, neighbor = 1, max_
   
   pp = data.frame(vals = c(target, null), type = rep(c("Cross-expressing", "Random"), times = c(length(target), length(null))))
   pp$type = factor(pp$type, levels = c("Random","Cross-expressing"))
-  pp = ggplot(pp) + aes(x = vals, fill = type, y = after_stat(scaled)) +
+  pp = ggplot(pp) + aes(x = .data$vals, fill = .data$type, y = after_stat(.data$scaled)) +
     geom_density(alpha = 0.8) +
     labs(x = "Distance to cells", y = "Density", fill = "") + theme_classic() +
     guides(fill = guide_legend(reverse = TRUE)) +
@@ -630,6 +632,7 @@ spatial_enrichment <- function(data, locations, gene1, gene2, neighbor = 1, max_
 #' @return Returns a plot with cells shown as points and color indicating the genes it expresses.
 #' @import Matrix
 #' @importFrom ggplot2 ggplot
+#' @importFrom rlang .data
 #' @export
 #'
 tissue_expression_plot <- function(data, locations, gene1, gene2, cross_expression = TRUE, neighbor = 1, point_size = 0, scale_bar = 0){
@@ -665,7 +668,7 @@ tissue_expression_plot <- function(data, locations, gene1, gene2, cross_expressi
     locations$type = factor(locations$type, levels = c("Neither", "Both", "Gene2", "Gene1"))
     locations = locations[order(locations$type), ]
     
-    p = ggplot(locations) + aes(x = x, y = y, color = type) +
+    p = ggplot(locations) + aes(x = .data$x, y = .data$y, color = type) +
       geom_point(size = point_size) +
       scale_color_manual(values = c("Neither" = "gray88", "Both" = "chartreuse3", "Gene2" = "deepskyblue4", "Gene1" = "brown3"),
                          labels = c("Neither" = "Neither", "Both" = "Both", "Gene2" = gene_names[2], "Gene1" = gene_names[1])) +
@@ -713,7 +716,7 @@ tissue_expression_plot <- function(data, locations, gene1, gene2, cross_expressi
   meta_reordered = rbind(meta_neither, meta_others)
   
   # plot cross-expression
-  p = ggplot(meta_reordered) + aes(x = x, y = y, color = light) +
+  p = ggplot(meta_reordered) + aes(x = .data$x, y = .data$y, color = light) +
     geom_point(size = point_size) +
     scale_color_manual(values = c("Neither" = "gray88", "Both" = "chartreuse3", "Gene2" = "deepskyblue4", "Gene1" = "brown3"),
                        labels = c("Neither" = "Neither", "Both" = "Both", "Gene2" = gene_names[2], "Gene1" = gene_names[1])) +
