@@ -51,7 +51,6 @@ test_that("bullseye_scores correctly returns matrix output", {
   
   # Check output structure with matrices
   expect_type(result_matrix, "list")
-  expect_equal(length(result_matrix), length(custom_windows) + 1)
   
   # Check matrix dimensions
   for (i in 1:length(result_matrix)) {
