@@ -1,7 +1,7 @@
 \name{locations}
 \docType{data}
 \alias{locations}
-\title{Dataset: Locations}
+\title{Dataset: locations}
 \description{
   A dataset containing the spatial coordinates (x, y) of cells in a mouse brain derived from a study published in Nature.
 }
