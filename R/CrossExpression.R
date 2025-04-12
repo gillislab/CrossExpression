@@ -52,8 +52,12 @@ get_cooccurrence_stats <- function(matrix1, matrix2, sparse = TRUE, binarize = T
   cooccur = t(matrix1) %*% matrix2
   cells   = t(matrix1) %*% matrix1
   
+  # convert to regular matrix
+  cooccur = base::as.matrix(cooccur)
+  cells   = base::as.matrix(cells)
+  
   # return output
-  output  = list(cooccur, cells); names(output) = c("cooccur", "cells")
+  output  = list(cooccur,cells); names(output) = c("cooccur","cells")
   return(output)
 }
 
@@ -96,7 +100,7 @@ rotate_coordinates <- function(x, y, n_degrees = 0, center = FALSE, scale = FALS
   # center and/or scales the coordinates
   x_rotated <- scale(x = x_rotated, center = center, scale = scale)
   y_rotated <- scale(x = y_rotated, center = center, scale = scale)
-
+  
   # flip x or y coordinates
   if (flip_x){
     x_rotated <- -1 * x_rotated
@@ -125,9 +129,11 @@ rotate_coordinates <- function(x, y, n_degrees = 0, center = FALSE, scale = FALS
 #' @import Rfast
 #' @export
 #'
+
 cross_expression <- function(data, locations, neighbor = 1, alpha_cross = 0.05, alpha_co = 0, output_matrix = FALSE){
   
-  # binarize data
+  # convert data to sparse matrix and binarize
+  data = Matrix(data = Matrix::as.matrix(data), sparse = TRUE)
   data[data > 0] = 1
   
   # find nth nearest neighbors and create neighbors x genes matrix
@@ -273,7 +279,10 @@ cross_expression <- function(data, locations, neighbor = 1, alpha_cross = 0.05, 
 #' @export
 #'
 cross_expression_correlation <- function(data, locations, neighbor = 1, output_matrix = FALSE){
-
+  
+  # convert data to matrix
+  data = as.matrix(data)
+  
   # find nth nearest neighbors and create neighbors x genes matrix
   neighbor  = neighbor + 1
   distances = RANN::nn2(locations, locations, k = neighbor, searchtype = "standard", treetype = "kd")
@@ -288,7 +297,7 @@ cross_expression_correlation <- function(data, locations, neighbor = 1, output_m
   mask_data_temp[mask_data_temp > 0] = 1
   
   X = mask_data * (1 - mask_data_temp)
-  Y = mask_data_temp * (1 - mask_data)
+  Y = (1 - mask_data) * mask_data_temp
   
   # keep mutually exclusive gene pairs
   X = X * data
@@ -343,6 +352,7 @@ smooth_cells <- function(data, locations, neighbors_smoothed = 1, corr = TRUE){
   cellbycell[ids] = 1
   
   # smooth gene expression
+  data = Matrix(data = Matrix::as.matrix(data), sparse = TRUE)
   data_smooth = cellbycell %*% data
   data_smooth = data_smooth / neighbors_smoothed
   
@@ -353,6 +363,7 @@ smooth_cells <- function(data, locations, neighbors_smoothed = 1, corr = TRUE){
     corr = correlation(matrix1 = data_smooth, matrix2 = corr)
     
     # output smoothed expression matrix and correlation matrix
+    data_smooth = base::as.matrix(data_smooth)
     output = list(data_smooth, corr); names(output) = c("smooth_expression", "smooth_correlation")
     
     # return output
@@ -360,6 +371,7 @@ smooth_cells <- function(data, locations, neighbors_smoothed = 1, corr = TRUE){
   }
   
   # return output
+  data_smooth = base::as.matrix(data_smooth)
   return(data_smooth)
 }
 
@@ -384,7 +396,8 @@ smooth_cells <- function(data, locations, neighbors_smoothed = 1, corr = TRUE){
 #'
 bullseye_scores <- function(data, locations, window_sizes = 1:10, ratio_to_co = FALSE, log_2 = FALSE, output_matrix = FALSE){
   
-  # binarize data
+  # convert to sparse matrix and binarize
+  data = Matrix(data = Matrix::as.matrix(data), sparse = TRUE)
   data[data > 0] = 1
   
   # find neighbors of each cell per window
@@ -538,8 +551,9 @@ bullseye_plot <- function(scores){
 #'
 spatial_enrichment <- function(data, locations, gene1, gene2, neighbor = 1, max_pairs = 20000){
   
-  # subset genes
+  # subset genes and convert data to matrix
   data = data[,c(gene1,gene2)]
+  data = as.matrix(data)
   data[data > 0] = 1
   
   # find nth nearest neighbors and create neighbors x genes matrix
@@ -623,10 +637,11 @@ spatial_enrichment <- function(data, locations, gene1, gene2, neighbor = 1, max_
 #'
 tissue_expression_plot <- function(data, locations, gene1, gene2, cross_expression = TRUE, neighbor = 1, point_size = 0, scale_bar = 0){
   
-  # subset and binarize data
+  # convert to sparse matrix and binarize
   data = data[,c(gene1,gene2)]
   gene_names = colnames(data)
   colnames(data) = c("gene1","gene2")
+  data = Matrix(data = Matrix::as.matrix(data), sparse = TRUE)
   data[data > 0] = 1
   
   colnames(locations) = c("x","y")
