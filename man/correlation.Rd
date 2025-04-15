@@ -4,8 +4,10 @@
 \alias{correlation}
 \title{functions
 Computes Pearson's correlation between pairs of columns.
-If one matrix is provided, the output is the pairwise correlations between its columns.
-If two matrices are provided, the output is the pairwise correlations between their columns.}
+If one matrix is provided, the output is the pairwise correlations
+between its columns.
+If two matrices are provided, the output is the pairwise correlations
+between their columns.}
 \usage{
 correlation(matrix1, matrix2 = NULL)
 }
@@ -20,6 +22,13 @@ Returns a correlation matrix.
 \description{
 functions
 Computes Pearson's correlation between pairs of columns.
-If one matrix is provided, the output is the pairwise correlations between its columns.
-If two matrices are provided, the output is the pairwise correlations between their columns.
+If one matrix is provided, the output is the pairwise correlations
+between its columns.
+If two matrices are provided, the output is the pairwise correlations
+between their columns.
+}
+\examples{
+mat1 <- matrix(rnorm(100), nrow = 10)
+mat2 <- matrix(rnorm(100), nrow = 10)
+correlation(mat1, mat2)
 }

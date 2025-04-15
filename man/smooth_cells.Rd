@@ -2,8 +2,10 @@
 % Please edit documentation in R/CrossExpression.R
 \name{smooth_cells}
 \alias{smooth_cells}
-\title{Smooths cells' gene expression by averaging its expression by the nearest neighbors.
-Optionally computes genes by genes Pearson's correlation matrix between cells by genes
+\title{Smooths cells' gene expression by averaging its expression by the
+nearest neighbors.
+Optionally computes genes by genes Pearson's correlation matrix
+between cells by genes
 and neighbors by genes matrices.}
 \usage{
 smooth_cells(data, locations, neighbors_smoothed = 1, corr = TRUE)
@@ -11,17 +13,31 @@ smooth_cells(data, locations, neighbors_smoothed = 1, corr = TRUE)
 \arguments{
 \item{data}{A cells by genes expression matrix.}
 
-\item{locations}{A cells by coordinates (x-y or higher dimensions) matrix.}
+\item{locations}{A cells by coordinates (x-y or higher dimensions)
+matrix.}
 
-\item{neighbors_smoothed}{Numbers of neighbors used for smoothing (0 is the cell itself; 1 is the nearest neighbor).}
+\item{neighbors_smoothed}{Numbers of neighbors used for smoothing
+(0 is the cell itself; 1 is the nearest neighbor).}
 
-\item{corr}{If TRUE, computes genes by genes correlation matrix between regions.}
+\item{corr}{If TRUE, computes genes by genes correlation matrix between
+regions.}
 }
 \value{
-Returns a smoothed gene expression matrix. If corr = TRUE, additionally returns a gene-gene correlation matrix.
+Returns a smoothed gene expression matrix. If corr = TRUE,
+additionally returns a gene-gene correlation matrix.
 }
 \description{
-Smooths cells' gene expression by averaging its expression by the nearest neighbors.
-Optionally computes genes by genes Pearson's correlation matrix between cells by genes
+Smooths cells' gene expression by averaging its expression by the
+nearest neighbors.
+Optionally computes genes by genes Pearson's correlation matrix
+between cells by genes
 and neighbors by genes matrices.
+}
+\examples{
+data(expression)
+data(locations)
+smooth_cells(
+ data = expression,
+ locations = locations
+)
 }

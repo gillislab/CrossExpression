@@ -1,0 +1,16 @@
+citEntry <- bibentry(
+    bibtype = "Unpublished",
+    title = "Cross-expression analysis reveals patterns of coordinated gene expression in spatial transcriptomics",
+    author = c(
+        person("Ameer", "Sarwar"),
+        person("Mara", "Rue"),
+        person("Leon", "French"),
+        person("Helen", "Cross"),
+        person("Sarah", "Choi"),
+        person("Xiaoyin", "Chen"),
+        person("Jesse", "Gillis")
+    ),
+    year = 2024,
+    note = "Preprint on bioRxiv",
+    doi = "10.1101/2024.09.17.613579"
+)

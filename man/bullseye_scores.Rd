@@ -10,7 +10,7 @@ Neighbor scores are cumulative and normalized by window size.}
 bullseye_scores(
   data,
   locations,
-  window_sizes = 1:10,
+  window_sizes = seq_len(10),
   ratio_to_co = FALSE,
   log_2 = FALSE,
   output_matrix = FALSE
@@ -30,7 +30,8 @@ bullseye_scores(
 \item{output_matrix}{If TRUE, results are provided in matrix form.}
 }
 \value{
-Returns a dataframe with each row representing a gene pair and each column representing
+Returns a dataframe with each row representing a gene pair and
+each column representing
 the bullseye score for that pair in each window size.
 output_matrix = TRUE presents a matrix for each window size.
 }
@@ -39,4 +40,13 @@ Calculates bullseye statistics for ALL gene pairs.
 Counts the number of cells with gene B in those with gene A
 And in their neighbors
 Neighbor scores are cumulative and normalized by window size.
+}
+\examples{
+data(expression)
+data(locations)
+bullseye_scores(
+ data = expression,
+ locations = locations,
+ output_matrix = FALSE
+)
 }

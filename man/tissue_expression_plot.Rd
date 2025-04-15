@@ -33,8 +33,21 @@ tissue_expression_plot(
 \item{scale_bar}{Length of the scale bad in microns.}
 }
 \value{
-Returns a plot with cells shown as points and color indicating the genes it expresses.
+Returns a plot with cells shown as points and color indicating the
+genes it expresses.
 }
 \description{
 Plots gene expression and cross-expression on tissue by coloring cells.
+}
+\examples{
+data(expression)
+data(locations)
+expression_df <- as.data.frame(as.matrix(expression))
+locations_df <- as.data.frame(as.matrix(locations))
+tissue_expression_plot(
+ data = expression_df,
+ locations = locations_df,
+ gene1 = "Tafa1",
+ gene2 = "Col19a1"
+)
 }

@@ -4,7 +4,8 @@
 \alias{bullseye_plot}
 \title{Outputs a circular bullseye plot for a gene pair.
 The central circle is gene B in cells expressing gene A.
-Rings indicate neighbors with gene B, where the first ring is the first neighbor.}
+Rings indicate neighbors with gene B, where the first ring is the first
+neighbor.}
 \usage{
 bullseye_plot(scores)
 }
@@ -17,5 +18,22 @@ Returns a circular bullseye plot.
 \description{
 Outputs a circular bullseye plot for a gene pair.
 The central circle is gene B in cells expressing gene A.
-Rings indicate neighbors with gene B, where the first ring is the first neighbor.
+Rings indicate neighbors with gene B, where the first ring is the first
+neighbor.
+}
+\examples{
+data(expression)
+data(locations)
+bull <- bullseye_scores(
+    data = expression,
+    locations = locations,
+    window_sizes = 1:5,
+    ratio_to_co = FALSE,
+    log_2 = FALSE,
+    output_matrix = FALSE
+)
+score_vector <- as.numeric(
+    bull[bull$gene1 \%in\% "Galntl6" & bull$gene2 \%in\% "Nrg1", 3:ncol(bull)]
+)
+bullseye_plot(scores = score_vector)
 }

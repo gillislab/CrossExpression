@@ -9,10 +9,10 @@ vignette: >
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(
-  message = FALSE,
-  fig.width = 4,
-  fig.height = 2.5,
-  dpi = 150
+    message = FALSE,
+    fig.width = 4,
+    fig.height = 2.5,
+    dpi = 150
 )
 ```
 
@@ -43,7 +43,7 @@ Check that the datasets are loaded correctly by running:
 expression_df <- as.data.frame(as.matrix(expression))
 locations_df <- as.data.frame(as.matrix(locations))
 
-expression_df[1:5,1:5]
+expression_df[1:5, 1:5]
 head(locations_df)
 ```
 
@@ -55,7 +55,10 @@ Before analyzing our data, let us briefly look at it by running:
 
 ```{r}
 library(ggplot2)
-ggplot(locations_df) + aes(x = pos_x, y = pos_y) + geom_point(size = 0) + theme_classic()
+ggplot(locations_df) +
+    aes(x = pos_x, y = pos_y) +
+    geom_point(size = 0) +
+    theme_classic()
 ```
 
 This outputs the image shown above, where each dot is a cell plotted using its x and y coordinates.
@@ -65,7 +68,14 @@ This outputs the image shown above, where each dot is a cell plotted using its x
 We will now perform cross-expression analysis, which tells us whether a gene is preferentially expressed in cells whose neighbors express another gene. The two main inputs are the gene expression matrix `data` and cell coordinates matrix `locations`. Run the function `cross_expression` and view its (default) output:
 
 ```{r}
-cross = cross_expression(data = expression, locations = locations, neighbor = 1, alpha_cross = 0.05, alpha_co = 0, output_matrix = FALSE)
+cross <- cross_expression(
+    data = expression,
+    locations = locations,
+    neighbor = 1,
+    alpha_cross = 0.05,
+    alpha_co = 0,
+    output_matrix = FALSE
+)
 head(cross)
 ```
 
@@ -74,7 +84,7 @@ The function compares each gene pair and reports the p-values of cross-expressio
 A critical feature of `cross` is `cross_sig`, so let us only keep the gene pairs with significant cross-expression.
 
 ```{r}
-cross = cross[as.logical(cross$cross_sig),]
+cross <- cross[as.logical(cross$cross_sig), ]
 head(cross)
 ```
 
@@ -97,7 +107,16 @@ To this end, let us color the cells based on the expression of `Tafa1` and `Col1
 Run the `tissue_expression_plot` function to do so:
 
 ```{r}
-tissue_expression_plot(data = expression_df, locations = locations_df, gene1 = "Tafa1", gene2 = "Col19a1", cross_expression = FALSE, neighbor = 1, point_size = 0, scale_bar = 0)
+tissue_expression_plot(
+    data = expression_df,
+    locations = locations_df,
+    gene1 = "Tafa1",
+    gene2 = "Col19a1",
+    cross_expression = FALSE,
+    neighbor = 1,
+    point_size = 0,
+    scale_bar = 0
+)
 ```
 
 This shows the above image, where the cells are colored by the expression, co-expression, or non-expression of these genes:
@@ -105,7 +124,16 @@ This shows the above image, where the cells are colored by the expression, co-ex
 However, it is still difficult to distinguish the cross-expressing cell-neighbor pairs from individual cells expressing each gene. To only color cross-expressing cells, call the `tissue_expression_plot` function while setting `cross_expression = TRUE`:
 
 ```{r}
-tissue_expression_plot(data = expression_df, locations = locations_df, gene1 = "Tafa1", gene2 = "Col19a1", cross_expression = TRUE, neighbor = 1, point_size = 0, scale_bar = 0)
+tissue_expression_plot(
+    data = expression_df,
+    locations = locations_df,
+    gene1 = "Tafa1",
+    gene2 = "Col19a1",
+    cross_expression = TRUE,
+    neighbor = 1,
+    point_size = 0,
+    scale_bar = 0
+)
 ```
 
 This produces the above image, which clearly shows that these two genes are preferentially expressed in neighboring cells:
@@ -121,7 +149,14 @@ We can test for the hypothesis that the average distance between cross-expressin
 We do the test by running `spatial_enrichment`:
 
 ```{r}
-enrich = spatial_enrichment(data = expression_df, locations = locations_df, gene1 = "Tafa1", gene2 = "Col19a1", neighbor = 1, max_pairs = 20000)
+enrich <- spatial_enrichment(
+    data = expression_df,
+    locations = locations_df,
+    gene1 = "Tafa1",
+    gene2 = "Col19a1",
+    neighbor = 1,
+    max_pairs = 20000
+)
 enrich$pvalue
 ```
 
@@ -150,7 +185,12 @@ To this end, we compute Pearson's correlation between genes across cells and nei
 Find the correlations between gene pairs using `cross_expression_correlation`:
 
 ```{r}
-corr = cross_expression_correlation(data = expression, locations = locations, neighbor = 1, output_matrix = FALSE)
+corr <- cross_expression_correlation(
+    data = expression,
+    locations = locations,
+    neighbor = 1,
+    output_matrix = FALSE
+)
 head(corr)
 ```
 
@@ -167,7 +207,14 @@ In addition to statistical significance (`cross_expression`) and the strength of
 The `effect size` - also called `bullseye scores` (see below) - are computed using:
 
 ```{r}
-bull = bullseye_scores(data = expression, locations = locations, window_sizes = 1:5, ratio_to_co = FALSE, log_2 = FALSE, output_matrix = FALSE)
+bull <- bullseye_scores(
+    data = expression,
+    locations = locations,
+    window_sizes = 1:5,
+    ratio_to_co = FALSE,
+    log_2 = FALSE,
+    output_matrix = FALSE
+)
 head(bull)
 ```
 
@@ -189,7 +236,9 @@ Here, we make a bullseye plot for an example gene pair `Galntl6` (central cell) 
 
 ```{r}
 # extract scores for relevant genes
-score_vector = as.numeric(bull[bull$gene1 %in% "Galntl6" & bull$gene2 %in% "Nrg1", 3:ncol(bull)])
+score_vector <- as.numeric(
+    bull[bull$gene1 %in% "Galntl6" & bull$gene2 %in% "Nrg1", 3:ncol(bull)]
+)
 
 # plot bullseye using scores
 bullseye_plot(scores = score_vector)
@@ -204,7 +253,10 @@ We consider cross-expression as a relation between individual cells. However, gr
 We facilitate this analysis by smoothing (convolving) genes' expression in cells with that in their neighbors (kernel) using:
 
 ```{r}
-smth = smooth_cells(data = expression, locations = locations, neighbors_smoothed = 5, corr = TRUE)
+smth <- smooth_cells(
+    data = expression,
+    locations = locations, neighbors_smoothed = 5, corr = TRUE
+)
 ```
 
 The `neighbors_smoothed = 0` performs no smoothing and positive integers specify the number of neighbors to use as the smoothing kernel. For example, `neighbors_smoothed = 5` smooths the gene expression using `5` nearest neigbhors. The `corr = TRUE` specifies that correlations between the 5-neighbor niches should be computed.
@@ -215,10 +267,21 @@ During spatial transcriptomic data collection, tissues are often unaligned with 
 
 ```{r}
 # rotate coordinates
-locations2 = rotate_coordinates(x = locations_df$pos_x, y = locations_df$pos_y, n_degrees = 20, center = TRUE, scale = TRUE, flip_x = TRUE, flip_y = TRUE)
+locations2 <- rotate_coordinates(
+    x = locations_df$pos_x,
+    y = locations_df$pos_y,
+    n_degrees = 20,
+    center = TRUE,
+    scale = TRUE,
+    flip_x = TRUE,
+    flip_y = TRUE
+)
 
 # view result
-ggplot(locations2) + aes(x = pos_x, y = pos_y) + geom_point(size = 0) + theme_classic()
+ggplot(locations2) +
+    aes(x = pos_x, y = pos_y) +
+    geom_point(size = 0) +
+    theme_classic()
 ```
 
 The output in `locations2` rotates the xy coordinates `20` degrees counter-clockwise, z-score normalizes them (`center = TRUE` and `scale = TRUE`), and reflects them in the x and y axes (`flip_x = TRUE` and `flip_y = TRUE`).
@@ -233,8 +296,12 @@ If you have any questions, please email [ameer.sarwar\@mail.utoronto.ca](mailto:
 
 If you find the cross-expression framework or the accompanying software useful, please cite the following manuscript:
 
-```         
+```   
 Sarwar A, Rue M, French L, Cross H, Chen X, & Gillis J.
 Cross-expression analysis reveals patterns of coordinated gene expression in spatial transcriptomics
 bioRxiv (2024). https://doi.org/10.1101/2024.09.17.613579.
+```
+
+```{r session-info, echo=FALSE}
+sessionInfo()
 ```

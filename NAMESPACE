@@ -9,13 +9,15 @@ export(rotate_coordinates)
 export(smooth_cells)
 export(spatial_enrichment)
 export(tissue_expression_plot)
+export(get_cooccurrence_stats)
+export(scale_01)
 import(Matrix)
 import(Rfast)
 import(stringr)
 importFrom(dplyr, bind_rows)
 importFrom(ggplot2, ggplot, aes, geom_polygon, coord_fixed, scale_fill_gradient,
-           labs, theme_classic, theme, element_blank, element_text,
-           after_stat, geom_density, guides, guide_legend, scale_fill_manual,
-           geom_point, scale_color_manual, annotate)
+            labs, theme_classic, theme, element_blank, element_text,
+            after_stat, geom_density, guides, guide_legend, scale_fill_manual,
+            geom_point, scale_color_manual, annotate)
 importFrom(stats, phyper, p.adjust, wilcox.test, quantile, window)
 importFrom(rlang, .data)

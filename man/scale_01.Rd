@@ -15,3 +15,6 @@ Returns a vector scaled between 0 and 1.
 \description{
 Scales a vector between 0 and 1, including for negative values.
 }
+\examples{
+scale_01(c(-5, 0, 5, 10))
+}

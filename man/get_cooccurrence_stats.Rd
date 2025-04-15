@@ -14,12 +14,21 @@ get_cooccurrence_stats(matrix1, matrix2, sparse = TRUE, binarize = TRUE)
 
 \item{sparse}{If TRUE, coerces matrices to sparse format for efficiency.}
 
-\item{binarize}{If TRUE, converts matrices to binary format to count the number of common elements.}
+\item{binarize}{If TRUE, converts matrices to binary format to count the
+number of common elements.}
 }
 \value{
-Returns a column by column matrix, where entries represent the number of common elements.
+Returns a column by column matrix, where entries represent the
+number of common elements.
 }
 \description{
 Calculates the number of elements common between columns of two matrices.
 This function performs a simple dot product when binarize = FALSE.
+}
+\examples{
+mat1 <- matrix(sample(0:1, 25, replace = TRUE), nrow = 5)
+mat2 <- matrix(sample(0:1, 25, replace = TRUE), nrow = 5)
+stats <- get_cooccurrence_stats(mat1, mat2)
+stats$cooccur
+stats$cells
 }

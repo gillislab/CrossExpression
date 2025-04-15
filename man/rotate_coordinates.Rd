@@ -37,3 +37,8 @@ Returns a data frame containing the new x and y coordinates.
 This function takes x and y coordinates and rotates them counterclockwise
 by the specified number of degrees, and mean centers the points.
 }
+\examples{
+x <- c(1, 2, 3)
+y <- c(0, 0, 0)
+rotate_coordinates(x, y, n_degrees = 90)
+}

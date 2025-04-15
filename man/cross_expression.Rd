@@ -27,9 +27,22 @@ cross_expression(
 \item{output_matrix}{If TRUE, outputs the cross-expression p-value matrix.}
 }
 \value{
-Returns a list containing gene pairs with co-expression and cross-expression p-values
-before and after false discovery rate (FDR) correction.
+Returns a list containing gene pairs with co-expression and
+cross-expression p-values before and after false discovery rate (FDR)
+correction.
 }
 \description{
 Computes cross-expression and co-expression p-values between all gene pairs.
+}
+\examples{
+data(expression)
+data(locations)
+cross_expression(
+ data = expression,
+ locations = locations,
+ neighbor = 1,
+ alpha_cross = 0.05,
+ alpha_co = 0,
+ output_matrix = FALSE
+)
 }
