@@ -19,7 +19,9 @@ Install the package by running the following in a R terminal:
 #### Temporary ####
 
 ``{r}
-if (!requireNamespace("remotes", quietly = TRUE)) install.packages("remotes")
+if (!require("remotes", quietly = TRUE))
+    install.packages("remotes")
+
 remotes::install_github("gillislab/CrossExpression")
 ```
 
