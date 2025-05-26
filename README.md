@@ -34,7 +34,7 @@ if (!require("BiocManager", quietly = TRUE))
 BiocManager::install("CrossExpression")
 ```
 
-Then, in a new R file, load the library and the sample data by running:
+Once the package is installed, load the library and the sample data by running:
 
 ```{r}
 library("CrossExpression")
