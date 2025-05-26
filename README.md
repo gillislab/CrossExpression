@@ -25,8 +25,6 @@ if (!require("remotes", quietly = TRUE))
 remotes::install_github("gillislab/CrossExpression")
 ```
 
-#### Package approval in-progress ####
-
 ```{r}
 if (!require("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
