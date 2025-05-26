@@ -16,14 +16,14 @@ We will conduct cross-expression analysis on a dataset collected using BARseq (b
 
 Install the package by running the following in a R terminal:
 
-** Temporary **
+#### Temporary ####
 
 ``{r}
 if (!requireNamespace("remotes", quietly = TRUE)) install.packages("remotes")
 remotes::install_github("gillislab/CrossExpression")
 ```
 
-** Package approval in progress **
+#### Package approval in-progress ####
 
 ```{r}
 if (!require("BiocManager", quietly = TRUE))
