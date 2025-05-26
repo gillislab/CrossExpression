@@ -35,8 +35,8 @@ data("locations")
 Check that the datasets are loaded correctly by running:
 
 ```{r}
-expression_df <- as.data.frame(as.matrix(expression))
-locations_df <- as.data.frame(as.matrix(locations))
+expression_df = as.data.frame(as.matrix(expression))
+locations_df = as.data.frame(as.matrix(locations))
 
 expression_df[1:5,1:5]
 head(locations_df)
