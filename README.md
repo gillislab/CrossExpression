@@ -16,8 +16,6 @@ We will conduct cross-expression analysis on a dataset collected using BARseq (b
 
 Install the package by running the following in a R terminal:
 
-#### Temporary ####
-
 ``{r}
 if (!require("remotes", quietly = TRUE))
     install.packages("remotes")
