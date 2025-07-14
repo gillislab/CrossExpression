@@ -28,10 +28,7 @@ remotes::install_github("gillislab/CrossExpression")
 #### Package approval in-progress
 
 ```{r}
-if (!require("BiocManager", quietly = TRUE))
-    install.packages("BiocManager")
-
-BiocManager::install("CrossExpression")
+install.packages("CrossExpression")
 ```
 
 Once the package is installed, load the library and the sample data by running:
