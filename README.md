@@ -167,7 +167,7 @@ Cross-expression tells us whether the expression of one gene in a cell predicts 
 
 However, this formalism does not provide a continuous metric of the strength of the spatial relationship. Specifically, it does not tell us whether cells with high expression of a given gene are neighbors of cells with similarly high (or low) expression of another gene.
 
-To this end, we compute Pearson's correlation between genes across cells and neighbors. Whereas in co-expression the correlation is computed between gene expression vectors obtained from the same cells, in cross-expression the correlation is computed between gene expression vectors obtained from the cells and their neighbors. Like before, the cell-neighbor pairs must show mutually exclusive expression.
+To this end, we compute Pearson's correlation between genes across cells and neighbors, namely gene A's expression across cells and gene B's expression across these cells' neighbors. Like before, the cell-neighbor pairs must show mutually exclusive expression of these genes.
 
 Find the correlations between gene pairs using `cross_expression_correlation`:
 
