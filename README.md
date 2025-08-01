@@ -14,21 +14,18 @@ We will conduct cross-expression analysis on a dataset collected using BARseq (b
 
 ### Package Installation
 
-Install the package by running the following in a R terminal:
+Install the package by running the following in R:
 
-#### Temporary
+```{r}
+install.packages("CrossExpression")
+```
+#### Alternative method
 
 ```{r}
 if (!require("remotes", quietly = TRUE))
     install.packages("remotes")
 
 remotes::install_github("gillislab/CrossExpression")
-```
-
-#### Package approval in-progress
-
-```{r}
-install.packages("CrossExpression")
 ```
 
 Once the package is installed, load the library and the sample data by running:
