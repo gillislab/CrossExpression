@@ -193,7 +193,7 @@ In addition to statistical significance (`cross_expression`) and the strength of
 The `effect size` - also called `bullseye scores` (see below) - are computed using:
 
 ```{r}
-bull = bullseye_scores(data = expression, locations = locations, window_sizes = 1:5, ratio_to_co = FALSE, log_2 = FALSE, output_matrix = FALSE)
+bull = bullseye_scores(data = expression_df, locations = locations_df, window_sizes = 1:5, ratio_to_co = FALSE, log_2 = FALSE, output_matrix = FALSE)
 head(bull)
 ```
 
