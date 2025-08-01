@@ -172,7 +172,7 @@ To this end, we compute Pearson's correlation between genes across cells and nei
 Find the correlations between gene pairs using `cross_expression_correlation`:
 
 ```{r}
-corr = cross_expression_correlation(data = expression, locations = locations, neighbor = 1, output_matrix = FALSE)
+corr = cross_expression_correlation(data = expression_df, locations = locations_df, neighbor = 1, output_matrix = FALSE)
 head(corr)
 ```
 
