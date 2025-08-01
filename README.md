@@ -238,7 +238,7 @@ We consider cross-expression as a relation between individual cells. However, gr
 We facilitate this analysis by smoothing (convolving) genes' expression in cells with that in their neighbors (kernel) using:
 
 ```{r}
-smth = smooth_cells(data = expression, locations = locations, neighbors_smoothed = 5, corr = TRUE)
+smth = smooth_cells(data = expression_df, locations = locations_df, neighbors_smoothed = 5, corr = TRUE)
 ```
 
 The `neighbors_smoothed = 0` performs no smoothing and positive integers specify the number of neighbors to use as the smoothing kernel. For example, `neighbors_smoothed = 5` smooths the gene expression using `5` nearest neigbhors. The `corr = TRUE` specifies that correlations between the 5-neighbor niches should be computed.
