@@ -128,7 +128,7 @@ This produces the following image, which clearly shows that these two genes are 
 
 <img src="https://github.com/ameersarwar/cross_expression/assets/174621170/eccf7b7d-84ac-4d9c-968e-e1f5e75531e8" alt="Screenshot 2024-07-05 at 2 02 43 AM" width="1039"/>
 
-This allows one to view any gene pair of interest or customize the plot using `R`'s `ggplot` `library`, etc.
+This allows one to view any gene pair of interest and customize the plot using `R`'s `ggplot`.
 
 ### Spatial enrichment of cross-expression
 
