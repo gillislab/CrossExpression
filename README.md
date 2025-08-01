@@ -8,6 +8,14 @@ Spatial transcriptomic technologies measure gene expression in individual cells 
 
 <img src="https://github.com/user-attachments/assets/63835a44-347e-4d1d-b6b8-d31a05a61a22" alt="Screenshot 2024-07-24 at 2 41 11 AM" width="1000"/>
 
+Article:
+```{sh}
+Sarwar A, Rue M, French L, Cross H, Choi S, Chen X, & Gillis J.
+Cross-expression meta-analysis of 695 brain samples reveals coordinated gene expression across spatially adjacent cells
+bioRxiv (2025). https://doi.org/10.1101/2024.09.17.613579.
+```
+R package: https://cran.r-project.org/web/packages/CrossExpression/index.html
+
 ## Part 1 - Setup
 
 We will conduct cross-expression analysis on a dataset collected using BARseq (barcoded anatomy resolved by sequencing). As an example, here we provide one complete slice sectioned sagittally from the left hemisphere of an adult mouse brain.
@@ -19,7 +27,7 @@ Install the package by running the following in R:
 ```{r}
 install.packages("CrossExpression")
 ```
-#### Alternative method
+Alternatively
 
 ```{r}
 if (!require("remotes", quietly = TRUE))
