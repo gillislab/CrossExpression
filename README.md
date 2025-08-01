@@ -263,14 +263,14 @@ In practice, we may begin with a tissue resembling `location2` and rotate it unt
 
 ## Contact
 
-If you have any questions, please email [ameer.sarwar\@mail.utoronto.ca](mailto:ameer.sarwar@mail.utoronto.ca){.email} and copy [jesse.gillis\@utoronto.ca](mailto:jesse.gillis@utoronto.ca){.email}.
+If you have any questions, please email [ameer.sarwar\@mail.utoronto.ca](mailto:ameer.sarwar@mail.utoronto.ca) and copy [jesse.gillis\@utoronto.ca](mailto:jesse.gillis@utoronto.ca).
 
 ## Citation
 
 If you find the cross-expression framework or the accompanying software useful, please cite the following manuscript:
 
 ```{sh}
-Sarwar A, Rue M, French L, Cross H, Chen X, & Gillis J.
-Cross-expression analysis reveals patterns of coordinated gene expression in spatial transcriptomics
-bioRxiv (2024). https://doi.org/10.1101/2024.09.17.613579.
+Sarwar A, Rue M, French L, Cross H, Choi S, Chen X, & Gillis J.
+Cross-expression meta-analysis of 695 brain samples reveals coordinated gene expression across spatially adjacent cells
+bioRxiv (2025). https://doi.org/10.1101/2024.09.17.613579.
 ```
