@@ -68,10 +68,10 @@ This outputs the image shown below, where each dot is a cell plotted using its x
 
 ### Cross-expression across all gene pairs
 
-We will now perform cross-expression analysis, which tells us whether a gene is preferentially expressed in cells whose neighbors express another gene. The two main inputs are the gene expression matrix `expression` and cell coordinates matrix `locations`. Run the function `cross_expression` and view its (default) output:
+We will now perform cross-expression analysis, which tells us whether a gene is preferentially expressed in cells whose neighbors express another gene. The two main inputs are the gene expression matrix `expression_df` and cell coordinates matrix `locations_df`. Run the function `cross_expression` and view its (default) output:
 
 ```{r}
-cross = cross_expression(data = expression, locations = locations, neighbor = 1, alpha_cross = 0.05, alpha_co = 0, output_matrix = FALSE)
+cross = cross_expression(data = expression_df, locations = locations_df, neighbor = 1, alpha_cross = 0.05, alpha_co = 0, output_matrix = FALSE)
 head(cross)
 ```
 
