@@ -271,6 +271,6 @@ If you find the cross-expression framework or the accompanying software useful, 
 
 ```{sh}
 Sarwar A, Rue M, French L, Cross H, Choi S, Chen X, & Gillis J.
-Cross-expression meta-analysis of 695 brain samples reveals coordinated gene expression across spatially adjacent cells
-bioRxiv (2025). https://doi.org/10.1101/2024.09.17.613579.
+Cross-expression meta-analysis of mouse brain slices reveals coordinated gene expressionacross spatially adjacent cells
+Genome Biology (2025). [https://doi.org/10.1101/2024.09.17.613579](https://link.springer.com/article/10.1186/s13059-025-03747-8).
 ```
